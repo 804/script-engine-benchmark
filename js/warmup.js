@@ -300,10 +300,10 @@ suite.add('perf#sunspider-3d-morph', function () {
         print(String(event.target));
     })
     .on('complete', function () {
-        writeToFile('warmup/nashorn/results-iter'+iterNo+'.out', JSON.stringify(results));
+        writeToFile('warmup/'+engine+'/results-iter'+iterNo+'.out', JSON.stringify(results));
         print('Fastest is ' + this.filter('fastest').map('name'));
     })
     // .on('error', function (e) {
     //     print('Error: ' + JSON.stringify(e));
     // })
-    .run({'async': true});
+    .run({'async': false});

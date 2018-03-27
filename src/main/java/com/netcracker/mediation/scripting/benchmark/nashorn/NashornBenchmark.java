@@ -1,13 +1,19 @@
 package com.netcracker.mediation.scripting.benchmark.nashorn;
 
 import javax.script.*;
+import java.util.Date;
 
 public class NashornBenchmark {
-    private static Integer warmUpCounter = 2;
+    private static Integer warmUpCounter = 5;
 
     public static void main(String[] args) throws ScriptException {
+        if (args.length > 0) {
+            warmUpCounter = Integer.valueOf(args[0]);
+        }
+        System.out.println("Start: "+new Date());
         warmUp();
         runTests();
+        System.out.println("Finish: "+new Date());
     }
 
     public static Object warmUp() throws ScriptException {
@@ -52,6 +58,7 @@ public class NashornBenchmark {
         SimpleBindings simpleBindings = new SimpleBindings();
         simpleBindings.put("writeToFile", new WriteToFile());
         simpleBindings.put("iterNo", iterationNumber);
+        simpleBindings.put("engine", "nashorn");
         return simpleBindings;
     }
 

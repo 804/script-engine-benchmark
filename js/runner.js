@@ -413,7 +413,7 @@ suite.add('perf#sunspider-3d-morph', function () {
         print(String(event.target));
     })
     .on('complete', function () {
-        writeToFile('tests/nashorn/results.out', JSON.stringify(results));
+        writeToFile('tests/'+engine+'/results.out', JSON.stringify(results));
         print('Fastest is ' + this.filter('fastest').map('name'));
     })
     .run({'async': false});
