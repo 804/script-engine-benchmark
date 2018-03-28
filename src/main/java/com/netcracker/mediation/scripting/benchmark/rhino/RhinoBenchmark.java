@@ -52,7 +52,7 @@ public class RhinoBenchmark {
                     "load('js/platform.js');" +
                     "load('js/benchmark.js');", "benchmark", 1, null);
             extLibCompiled.exec(context, global);
-            Script testScriptCompiled = context.compileString("load('js/warmup.js');", "test", 1, null);
+            Script testScriptCompiled = context.compileString("load('js/runner.js');", "test", 1, null);
             result = testScriptCompiled.exec(context, global);
         } finally {
             Context.exit();
