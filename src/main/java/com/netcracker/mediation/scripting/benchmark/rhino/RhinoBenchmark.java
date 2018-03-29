@@ -8,22 +8,39 @@ import java.io.IOException;
 import java.util.Date;
 
 public class RhinoBenchmark {
-    private static Integer warmUpCounter = 5;
+    private static Integer warmUpIterations = 5;
+    private static boolean useWarmUp = true;
 
     public static void main(String[] args) throws IOException {
-        if (args.length > 0) {
-            warmUpCounter = Integer.valueOf(args[0]);
-        }
+        parseArguments(args);
+        System.out.println("useWarmUp=" + useWarmUp + ", warmUpIterations=" + warmUpIterations);
         System.out.println("Start: " + new Date());
-        warmup();
+        if (useWarmUp) {
+            warmup();
+        }
         runTests();
         System.out.println("Finish: " + new Date());
     }
 
+    public static void parseArguments(String[] args) {
+        for (String arg : args) {
+            String[] pair = arg.split("=");
+            if (pair.length == 2) {
+                switch (pair[0]) {
+                    case "warmup":
+                        useWarmUp = Boolean.valueOf(pair[1]);
+                        break;
+                    case "warmup_iter":
+                        warmUpIterations = Integer.parseInt(pair[1]);
+                        break;
+                }
+            }
+        }
+    }
 
     public static Object warmup() {
-        Object[] res = new Object[warmUpCounter * 2];
-        for (int i = 0; i < warmUpCounter; i++) {
+        Object[] res = new Object[warmUpIterations * 2];
+        for (int i = 0; i < warmUpIterations; i++) {
             System.out.println("WarmUp: iteration " + i);
             try {
                 Context context = Context.enter();
