@@ -179,13 +179,13 @@ suite.add('perf#sunspider-3d-morph', function () {
     }
 })
     .add('Array Construction, []', function () {
-        for (var j = 0; j < arrayTests.i * 15; j++) {
+        for (var j = 0; j < arrayTests.i * 40; j++) {
             arrayTests.ret = [];
             arrayTests.ret.length = arrayTests.i;
         }
     })
     .add('Array Construction, new Array()', function () {
-        for (var j = 0; j < arrayTests.i * 10; j++)
+        for (var j = 0; j < arrayTests.i * 40; j++)
             arrayTests.ret = new Array(arrayTests.i);
     })
     .add('Array Construction, unshift', function () {
@@ -210,12 +210,12 @@ suite.add('perf#sunspider-3d-morph', function () {
     })
     .add("Array Construction, push", function () {
         arrayTests.ret = [];
-        for (var j = 0; j < arrayTests.i * 25; j++)
+        for (var j = 0; j < arrayTests.i * 40; j++)
             arrayTests.ret.push(j);
     })
     .add("Array Deconstruction, pop", function () {
         var a = arrayTests.ret.slice();
-        for (var j = 0; j < arrayTests.i * 25; j++)
+        for (var j = 0; j < arrayTests.i * 40; j++)
             arrayTests.tmp = a.pop();
     })
     .add("Convert String to Base 64", function () {
@@ -250,46 +250,46 @@ suite.add('perf#sunspider-3d-morph', function () {
         }
     })
     .add("Compiled Object Char Split", function () {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 30; i++)
             regexpTests.ret = regexpTests.tmp[i].split(regexpTests.re);
     }, {
         setup: function () {
             regexpTests.re = /a/;
-            regexpTests.tmp = regexpTests.generateTestStrings(5);
+            regexpTests.tmp = regexpTests.generateTestStrings(30);
         }
     })
     .add("Compiled Object Variable Split", function () {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 30; i++)
             regexpTests.ret = regexpTests.tmp[i].split(regexpTests.re);
     }, {
         setup: function () {
             regexpTests.re = /.*/;
-            regexpTests.tmp = regexpTests.generateTestStrings(5);
+            regexpTests.tmp = regexpTests.generateTestStrings(30);
         }
     })
     .add("Compiled Match", function () {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 30; i++)
             regexpTests.ret = regexpTests.tmp[i].match(regexpTests.re);
     }, {
         setup: function () {
             regexpTests.re = /aaaaaaaaaa/g;
-            regexpTests.tmp = regexpTests.generateTestStrings(5);
+            regexpTests.tmp = regexpTests.generateTestStrings(30);
         }
     })
     .add("Compiled Test", function () {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 30; i++)
             regexpTests.ret = regexpTests.re.test(regexpTests.tmp[i]);
     }, {
         setup: function () {
-            regexpTests.tmp = regexpTests.generateTestStrings(5);
+            regexpTests.tmp = regexpTests.generateTestStrings(30);
         }
     })
     .add("Compiled Empty Replace", function () {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 30; i++)
             regexpTests.ret = regexpTests.tmp[i].replace(regexpTests.re, "");
     }, {
         setup: function () {
-            regexpTests.tmp = regexpTests.generateTestStrings(5);
+            regexpTests.tmp = regexpTests.generateTestStrings(30);
         }
     })
     // add listeners
