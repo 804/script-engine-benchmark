@@ -6,6 +6,7 @@
 
     <groupId>com.netcracker.mediation</groupId>
     <artifactId>script-engine-benchmark</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
 
@@ -31,12 +32,8 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.mozilla</groupId>
-            <artifactId>rhino</artifactId>
-            <version>1.7.9</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>script-engine-benchmark-js-google</module>
+        <module>script-engine-benchmark-js-stats</module>
+    </modules>
 </project>
