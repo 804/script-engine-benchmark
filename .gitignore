@@ -39,4 +39,3 @@ hs_err_pid*
 # Gradle ignore directories
 build
 .gradle
-!gradle/wrapper/gradle-wrapper.jar
