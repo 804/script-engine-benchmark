@@ -3,6 +3,7 @@
 Source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks) 
 
 ###Step 1 <br/> _Dataset preparing._ 
+
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -17,7 +18,6 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle opti
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
 
-
 #### b. Gradle assemble tasks
 1. Create jar with dependencies: 
    `./gradlew js-google:clean js-google:shadowJar`
@@ -26,6 +26,7 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle proj
  - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
+
 
 #### Parameters.
 ##### Common parameters:
@@ -36,6 +37,7 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
  - _**optimistic-types**_: boolean flag for turning on 'optimistic-types' option in Nashorn engine
 ##### Rhino parameters:
  - _**optimization-level**_: integer value for 'optimization-level' option in Rhino engine (range for benchmark is `0-9`)
+
 
 ###Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:

@@ -3,7 +3,7 @@
 Source: [dromaeo](http://dromaeo.com/?dromaeo)
 
 ###Step 1 <br/> _Dataset preparing._ 
-###Step 1 <br/> _Dataset preparing._ 
+
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -16,7 +16,6 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle opti
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
 
-
 #### b. Gradle assemble tasks
 1. Create jar with dependencies: 
    `./gradlew js-stats:clean js-stats:shadowJar`
@@ -26,12 +25,14 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle proj
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
 
+
 #### Parameters.
 ##### Common parameters:
  - _**use-warm-up**_: boolean flag for turning on of warming up (`false` by default)
  - _**warm-up-iterations**_: warming up iteration count (`5` by default)
  - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
  - _**result-path**_: result dataset output directory (`build/` by default)
+
 
 ###Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
