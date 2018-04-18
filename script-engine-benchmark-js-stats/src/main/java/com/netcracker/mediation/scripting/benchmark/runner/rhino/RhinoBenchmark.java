@@ -1,57 +1,25 @@
 package com.netcracker.mediation.scripting.benchmark.runner.rhino;
 
 import com.netcracker.mediation.scripting.benchmark.function.rhino.WriteToFile;
+import com.netcracker.mediation.scripting.benchmark.runner.AbstractBenchmark;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.tools.shell.Global;
 
+import java.util.Arrays;
 import java.util.Date;
 
-public class RhinoBenchmark {
-    private static String benchmarkJsPath = "script-engine-benchmark-js-stats/src/main/js/";
-    private static String resultPath = "script-engine-benchmark-js-stats/target/";
-    private static Integer warmUpIterations = 5;
-    private static boolean useWarmUp = true;
+/**
+ * Main class for Rhino JavaScript engine statistic benchmarks.
+ */
+public class RhinoBenchmark extends AbstractBenchmark {
 
-    public static void main(String[] args) {
-        parseArguments(args);
-        System.out.println(
-            "useWarmUp=" + useWarmUp +
-            ", warmUpIterations=" + warmUpIterations +
-            ", benchmarkJsPath=" + benchmarkJsPath +
-            ", resultPath" + resultPath
-        );
-        System.out.println("Start: " + new Date());
-        if (useWarmUp) {
-            warmup();
-        }
-        runTests();
-        System.out.println("Finish: " + new Date());
+    public static void main(String[] args) throws Exception {
+        new RhinoBenchmark().run(args);
     }
 
-    public static void parseArguments(String[] args) {
-        for (String arg : args) {
-            String[] pair = arg.split("=");
-            if (pair.length == 2) {
-                switch (pair[0]) {
-                    case "warmup":
-                        useWarmUp = Boolean.valueOf(pair[1]);
-                        break;
-                    case "warmup_iter":
-                        warmUpIterations = Integer.parseInt(pair[1]);
-                        break;
-                    case "benchmark_js_path":
-                        benchmarkJsPath = pair[1];
-                        break;
-                    case "result_path":
-                        resultPath = pair[1];
-                        break;
-                }
-            }
-        }
-    }
-
-    public static Object warmup() {
+    @Override
+    protected void warmUp() {
         Object[] res = new Object[warmUpIterations * 2];
         for (int i = 0; i < warmUpIterations; i++) {
             System.out.println("WarmUp: iteration " + i);
@@ -78,12 +46,13 @@ public class RhinoBenchmark {
             } finally {
                 Context.exit();
             }
+            System.out.println("WarmUp end. Result: " + Arrays.toString(res));
         }
-        return res;
     }
 
-    public static Object runTests() {
-        Object result;
+    @Override
+    protected void runTests() {
+        Object testScriptResult;
         try {
             Context context = Context.enter();
             Global global = new Global(context);
@@ -103,15 +72,15 @@ public class RhinoBenchmark {
                 1,
                 null
             );
-            result = testScriptCompiled.exec(context, global);
+            testScriptResult = testScriptCompiled.exec(context, global);
         } finally {
             Context.exit();
         }
-        return result;
+        System.out.println("Tests end. Result: " + testScriptResult);
     }
 
 
-    public static void fillScope(Global global, int iterationNo) {
+    private void fillScope(Global global, int iterationNo) {
         global.put("iterNo", global, iterationNo);
         global.put("engine", global, "rhino");
         global.put("writeToFile", global, new WriteToFile());

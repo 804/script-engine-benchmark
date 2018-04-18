@@ -12,6 +12,9 @@ import java.util.Map;
 import static java.util.Arrays.stream;
 
 
+/**
+ * Main class for Nashorn JavaScript engine Google benchmarks.
+ */
 public class NashornBenchmark extends AbstractBenchmark {
     private boolean optimisticTypesOption;
 
@@ -21,23 +24,15 @@ public class NashornBenchmark extends AbstractBenchmark {
 
     @Override
     protected void init(Map<String, String> argsMap) {
-        String optimisticTypes = argsMap.get("optimistic_types");
+        String optimisticTypes = argsMap.get("optimistic-types");
         if (optimisticTypes != null) this.optimisticTypesOption = Boolean.valueOf(optimisticTypes);
+        System.out.println("optimistic-types=" + this.optimisticTypesOption);
         super.init(argsMap);
     }
 
     @Override
-    protected Object runTests(int iterations) throws ScriptException {
-        List<ScriptEngineFactory> engineFactories = new ScriptEngineManager().getEngineFactories();
-        NashornScriptEngineFactory scriptEngineFactory = engineFactories.stream()
-                .filter(factory -> factory instanceof NashornScriptEngineFactory)
-                .map(factory -> (NashornScriptEngineFactory) factory)
-                .findFirst()
-                .get();
-        ScriptEngine engine;
-        engine = optimisticTypesOption
-                ? scriptEngineFactory.getScriptEngine("--optimistic-types=true")
-                : scriptEngineFactory.getScriptEngine();
+    protected void runTests(int iterations) throws ScriptException {
+        ScriptEngine engine = getScriptEngine();
         SimpleScriptContext context = new SimpleScriptContext();
         context.setBindings(createBinding(iterations), ScriptContext.ENGINE_SCOPE);
         CompiledScript loadScriptCompiled = ((Compilable) engine).compile(
@@ -47,11 +42,21 @@ public class NashornBenchmark extends AbstractBenchmark {
         CompiledScript testScriptCompiled = ((Compilable) engine).compile(
             "load('" + benchmarkJsPath + "benchmark.js');"
         );
-        Object testScriptResult = testScriptCompiled.eval(context);
-        System.out.println("Tests end");
-        return testScriptResult;
+        Object result = testScriptCompiled.eval(context);
+        System.out.println("Tests end. Result - " + result);
     }
 
+    private ScriptEngine getScriptEngine() {
+        List<ScriptEngineFactory> engineFactories = new ScriptEngineManager().getEngineFactories();
+        NashornScriptEngineFactory scriptEngineFactory = engineFactories.stream()
+                .filter(factory -> factory instanceof NashornScriptEngineFactory)
+                .map(factory -> (NashornScriptEngineFactory) factory)
+                .findFirst()
+                .get();
+        return optimisticTypesOption
+                ? scriptEngineFactory.getScriptEngine("--optimistic-types=true")
+                : scriptEngineFactory.getScriptEngine();
+    }
 
     private Bindings createBinding(int iterations) {
         SimpleBindings simpleBindings = new SimpleBindings();
@@ -59,6 +64,7 @@ public class NashornBenchmark extends AbstractBenchmark {
         simpleBindings.put("writeToFile", new WriteToFile());
         simpleBindings.put("engine", optimisticTypesOption ? "nashorn-opt" : "nashorn");
         simpleBindings.put("resultPath", resultPath);
+        simpleBindings.put("benchmarkJsPath", benchmarkJsPath);
         return simpleBindings;
     }
 }

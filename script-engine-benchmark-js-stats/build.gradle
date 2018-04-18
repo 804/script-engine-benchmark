@@ -1,0 +1,28 @@
+import com.netcraker.mediation.gradle.task.SequentialGradleBuild
+import com.netcraker.mediation.gradle.task.nashorn.NashornBenchmarkTask
+import com.netcraker.mediation.gradle.task.rhino.RhinoBenchmarkTask
+
+description = 'JavaScript engines statistic benchmarks'
+
+dependencies {
+    compile group: 'org.mozilla', name: 'rhino', version:'1.7.9'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
+}
+
+task 'nashorn'(type: NashornBenchmarkTask) {
+    description = 'Common task for running statistic benchmarks ' +
+        'for Nashorn JavaScript engine'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task 'rhino'(type: RhinoBenchmarkTask) {
+    description = 'Common task for running statistic benchmarks ' +
+        'for Rhino JavaScript engine'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task 'datasets'(type: SequentialGradleBuild) {
+    description = 'Build task for running Google benchmarks ' +
+        'for engine case (see tasks "nashorn" and "rhino")'
+    tasks = ['nashorn', 'rhino']
+}

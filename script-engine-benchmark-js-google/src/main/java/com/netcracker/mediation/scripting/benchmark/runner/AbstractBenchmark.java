@@ -6,23 +6,33 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
+/**
+ * Abstract class for JavaScript engine Google benchmarks.
+ */
 public abstract class AbstractBenchmark {
     private static final Integer DEFAULT_ITERATIONS = 500;
     private static final String ITER_ARG_STR = "iterations";
-    private static final String BENCHMARK_JS_PATH_ARG_STR = "benchmark_js_path";
-    private static final String RESULT_PATH_ARG_STR = "result_path";
+    private static final String BENCHMARK_JS_PATH_ARG_STR = "benchmark-js-path";
+    private static final String RESULT_PATH_ARG_STR = "result-path";
 
-    protected String resultPath = "script-engine-benchmark-js-google/target/";
-    protected String benchmarkJsPath = "script-engine-benchmark-js-google/src/main/js/";
+    protected String resultPath = "build/";
+    protected String benchmarkJsPath = "src/main/js/";
 
+    /**
+     * Method for benchmark running.
+     *
+     * @param args - arguments for benchmark run
+     * @throws Exception in case of error occurring
+     *                   during script execution
+     */
     public void run(String[] args) throws Exception {
         Map<String, String> argsMap = parseArgs(args);
         int iterations = getIterations(argsMap);
         init(argsMap);
         System.out.println(
             "iterations=" + iterations +
-            ", benchmarkJsPath=" + benchmarkJsPath +
-            ", resultPath=" + resultPath
+                ", benchmark-js-path=" + benchmarkJsPath +
+                ", result-path=" + resultPath
         );
         System.out.println("Start: " + Instant.now());
         runTests(iterations);
@@ -52,5 +62,12 @@ public abstract class AbstractBenchmark {
                 );
     }
 
-    protected abstract Object runTests(int iterations) throws Exception;
+    /**
+     * Method with engine-based main logic of benchmark script executing.
+     *
+     * @param iterations - benchmark iteration count
+     * @throws Exception in case of error occurring
+     *                   during script execution
+     */
+    protected abstract void runTests(int iterations) throws Exception;
 }

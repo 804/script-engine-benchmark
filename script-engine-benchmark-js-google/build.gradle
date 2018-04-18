@@ -1,0 +1,49 @@
+import com.netcraker.mediation.gradle.task.SequentialGradleBuild
+import com.netcraker.mediation.gradle.task.nashorn.NashornBenchmarkTask
+import com.netcraker.mediation.gradle.task.rhino.RhinoBenchmarkTask
+
+description = 'JavaScript engines Google benchmarks'
+
+dependencies {
+    compile group: 'org.mozilla', name: 'rhino', version:'1.7.9'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
+}
+
+task 'nashorn'(type: NashornBenchmarkTask) {
+    description = 'Common task for running Google benchmarks ' +
+        'for Nashorn JavaScript engine'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task 'nashorn-opt'(type: NashornBenchmarkTask) {
+    description = 'Task for running Google benchmarks ' +
+        'for Nashorn JavaScript engine with parameter "optimistic-types=true"'
+    classpath = sourceSets.main.runtimeClasspath
+    optimisticTypes = true
+}
+
+task 'rhino-0'(type: RhinoBenchmarkTask) {
+    description = 'Task for running Google benchmarks ' +
+        'for Rhino JavaScript engine with parameter "optimizationLevel=0"'
+    classpath = sourceSets.main.runtimeClasspath
+    optimizationLevel = 0
+}
+
+task 'rhino-9'(type: RhinoBenchmarkTask) {
+    description = 'Task for running Google benchmarks ' +
+        'for Rhino JavaScript engine with parameter "optimizationLevel=9"'
+    classpath = sourceSets.main.runtimeClasspath
+    optimizationLevel = 9
+}
+
+task 'rhino'(type: RhinoBenchmarkTask) {
+    description = 'Common task for running Google benchmarks ' +
+        'for Rhino JavaScript engine'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task 'datasets'(type: SequentialGradleBuild) {
+    description = 'Build task for running Google benchmarks ' +
+            'for engine case (see tasks "nashorn", "nashorn-opt", "rhino-0", "rhino-9")'
+    tasks = ['nashorn', 'nashorn-opt', 'rhino-0', 'rhino-9']
+}

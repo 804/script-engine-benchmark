@@ -1,0 +1,8 @@
+rootProject.name = 'script-engine-benchmark'
+
+include 'script-engine-benchmark-js-google'
+include 'script-engine-benchmark-js-stats'
+
+
+project(":script-engine-benchmark-js-google").name = "js-google"
+project(":script-engine-benchmark-js-stats").name = "js-stats"

@@ -3,20 +3,39 @@
 Source: [dromaeo](http://dromaeo.com/?dromaeo)
 
 ###Step 1 <br/> _Dataset preparing._ 
+###Step 1 <br/> _Dataset preparing._ 
+#### a. Gradle benchmark tasks
+You can run benchmarks in different manniers:
+ - Run each case for benchmarks with corresponding task:
+   * Default Nashorn: `./gradlew js-stats:hashorn`
+   * Default Rhino: `./gradlew js-stats:rhino`
+   
+Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
+
+ - Run all cases for benchmarks above as sequential build task: `./gradlew js-stats:datasets`
+   
+Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
+
+
+#### b. Gradle assemble tasks
 1. Create jar with dependencies: 
-   `mvn clean compile assembly:single`
+   `./gradlew js-stats:clean js-stats:shadowJar`
 2. Run it as:
- - `java -cp script-engine-benchmark-js-stats-version.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark`
- - `java -cp script-engine-benchmark-js-stats-version.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
-<br/>
-#### Optional parameters (need to specify as `key=value`):
- - _**warmup_iter**_: warmup iteration count (`5` by default)
- - _**benchmark_js_path**_: JavaScript benchmark directory (`script-engine-benchmark-js-stats/src/main/js/` by default)
- - _**result_path**_: result dataset output directory (`script-engine-benchmark-js-stats/target/` by default)
+ - for Rhino benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark`
+ - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
+
+Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
+
+#### Parameters.
+##### Common parameters:
+ - _**use-warm-up**_: boolean flag for turning on of warming up (`false` by default)
+ - _**warm-up-iterations**_: warming up iteration count (`5` by default)
+ - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
+ - _**result-path**_: result dataset output directory (`build/` by default)
 
 ###Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
-1. Move folders `results` and `warmup` near to _**ScriptEnginePerformance.ipynb**_ dependencies (see `script-engine-benchmark-js-stats/analisys/` folder in repository)
+1. Move folders `results` and `warmup` from result folder near to _**ScriptEnginePerformance.ipynb**_ (see `script-engine-benchmark-js-stats/analisys/` folder in repository)
 2. Install Python 3.x and follow dependencies in your environment:
  - _**jupyter**_
  - _**matplotlib**_

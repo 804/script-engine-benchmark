@@ -3,20 +3,23 @@
 Source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks) 
 
 ###Step 1 <br/> _Dataset preparing._ 
+#### a. Gradle benchmark tasks
+
+#### b. Gradle assemble tasks
 1. Create jar with dependencies: 
-   `mvn clean compile assembly:single`
+   `./gradlew clean js-google:shadowJar`
 2. Run it as:
- - `java -cp script-engine-benchmark-js-google-version.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark`
- - `java -cp script-engine-benchmark-js-google-version.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
+ - `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark`
+ - `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
 <br/>
 #### Optional parameters (need to specify as `key=value`):
  - _**iterations**_: iteration count (`500` by default)
- - _**benchmark_js_path**_: JavaScript benchmark directory (`script-engine-benchmark-js-google/src/main/js/` by default)
- - _**result_path**_: result dataset output directory (`script-engine-benchmark-js-google/target/` by default)
+ - _**benchmarkJsPath**_: JavaScript benchmark directory (`script-engine-benchmark-js-google/src/main/js/` by default)
+ - _**resultPath**_: result dataset output directory (`script-engine-benchmark-js-google/target/` by default)
 
 ###Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
-1. Move folders `results` and `warmup` near to _**performance.ipynb**_ dependencies (see `script-engine-benchmark-js-google/analisys/` folder in repository)
+1. Move files from `result` folder from result destination directory to the folder `data` near to _**performance.ipynb**_ (see `script-engine-benchmark-js-google/analisys/` folder in repository)
 2. Install Python 3.x and follow dependencies in your environment:
  - _**jupyter**_
  - _**matplotlib**_

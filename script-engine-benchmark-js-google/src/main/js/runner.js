@@ -26,15 +26,15 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-load('script-engine-benchmark-js-google/src/main/js/base.js');
-load('script-engine-benchmark-js-google/src/main/js/richards.js');
-load('script-engine-benchmark-js-google/src/main/js/deltablue.js');
-load('script-engine-benchmark-js-google/src/main/js/crypto.js');
-load('script-engine-benchmark-js-google/src/main/js/raytrace.js');
-load('script-engine-benchmark-js-google/src/main/js/earley-boyer.js');
-load('script-engine-benchmark-js-google/src/main/js/regexp.js');
-load('script-engine-benchmark-js-google/src/main/js/splay.js');
-load('script-engine-benchmark-js-google/src/main/js/navier-stokes.js');
+load(benchmarkJsPath + 'base.js');
+load(benchmarkJsPath + 'richards.js');
+load(benchmarkJsPath + 'deltablue.js');
+load(benchmarkJsPath + 'crypto.js');
+load(benchmarkJsPath + 'raytrace.js');
+load(benchmarkJsPath + 'earley-boyer.js');
+load(benchmarkJsPath + 'regexp.js');
+load(benchmarkJsPath + 'splay.js');
+load(benchmarkJsPath + 'navier-stokes.js');
 
 var success = true;
 var results;

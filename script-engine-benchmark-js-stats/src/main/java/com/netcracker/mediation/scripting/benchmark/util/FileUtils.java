@@ -16,6 +16,6 @@ public final class FileUtils {
     public void createAndWrite(String fileName, Object content) {
         Path path = Paths.get(fileName);
         createDirectories(path.getParent());
-        write(path, content.toString().getBytes(), StandardOpenOption.CREATE_NEW);
+        write(path, content.toString().getBytes(), StandardOpenOption.CREATE);
     }
 }

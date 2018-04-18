@@ -8,7 +8,11 @@ import org.mozilla.javascript.tools.shell.Global;
 
 import java.util.Map;
 
+/**
+ * Main class for Rhino JavaScript engine Google benchmarks.
+ */
 public class RhinoBenchmark extends AbstractBenchmark {
+    private static final String OPTIMIZATION_LEVEL_ARG_STR = "optimization-level";
     private int optimizationLevel;
 
     public static void main(String[] args) throws Exception {
@@ -17,13 +21,14 @@ public class RhinoBenchmark extends AbstractBenchmark {
 
     @Override
     protected void init(Map<String, String> argsMap) {
-        String optimizationLevel = argsMap.get("optimization_level");
+        String optimizationLevel = argsMap.get(OPTIMIZATION_LEVEL_ARG_STR);
         if (optimizationLevel != null) this.optimizationLevel = Integer.parseInt(optimizationLevel);
+        System.out.println("optimization-level=" + this.optimizationLevel);
         super.init(argsMap);
     }
 
     @Override
-    public Object runTests(int iterations) {
+    public void runTests(int iterations) {
         Object result;
         try {
             Context context = Context.enter();
@@ -47,14 +52,14 @@ public class RhinoBenchmark extends AbstractBenchmark {
         } finally {
             Context.exit();
         }
-        return result;
+        System.out.println("Tests end. Result - " + result);
     }
-
 
     private void fillScope(Global global, int iterations) {
         global.put("iterations", global, iterations);
         global.put("engine", global, "rhino-" + optimizationLevel);
         global.put("writeToFile", global, new WriteToFile());
         global.put("resultPath", global, resultPath);
+        global.put("benchmarkJsPath", global, benchmarkJsPath);
     }
 }
