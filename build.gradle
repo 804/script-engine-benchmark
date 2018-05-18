@@ -1,26 +1,26 @@
 plugins {
-  id "com.github.johnrengelman.shadow" version "2.0.3"
-}
-
-repositories {
-  jcenter()
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
 }
 
 allprojects  {
-  group = 'com.netcracker.mediation'
-  version = '0.7'
+    group = 'com.netcracker.mediation'
+    version = '1.0.0'
+
+    repositories {
+        jcenter()
+    }
 }
 
 subprojects {
-  apply plugin: 'java'
-  apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
-  archivesBaseName = 'script-engine-benchmark-' + getProject().name
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
+    archivesBaseName = 'script-engine-benchmark-' + project.name
 
-  repositories {
-    jcenter()
-  }
+    tasks.withType(JavaCompile) {
+        options.incremental = true
+    }
 }

@@ -1,6 +1,6 @@
-import com.netcraker.mediation.gradle.task.SequentialGradleBuild
-import com.netcraker.mediation.gradle.task.nashorn.NashornBenchmarkTask
-import com.netcraker.mediation.gradle.task.rhino.RhinoBenchmarkTask
+import com.netcraker.mediation.gradle.task.common.SequentialGradleBuild
+import com.netcraker.mediation.gradle.task.common.nashorn.NashornBenchmarkTask
+import com.netcraker.mediation.gradle.task.common.rhino.RhinoBenchmarkTask
 
 description = 'JavaScript engines statistic benchmarks'
 

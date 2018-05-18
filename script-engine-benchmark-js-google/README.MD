@@ -3,7 +3,6 @@
 Source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks) 
 
 ###Step 1 <br/> _Dataset preparing._ 
-
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -32,12 +31,11 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
 ##### Common parameters:
  - _**iterations**_: iteration count (`500` by default)
  - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
- - _**result-path**_: result dataset output directory (`build/` by default)
+ - _**result-path**_: result dataset output directory (`out/` by default)
 ##### Nashorn parameters:
  - _**optimistic-types**_: boolean flag for turning on 'optimistic-types' option in Nashorn engine
 ##### Rhino parameters:
  - _**optimization-level**_: integer value for 'optimization-level' option in Rhino engine (range for benchmark is `0-9`)
-
 
 ###Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:

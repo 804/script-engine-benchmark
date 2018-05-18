@@ -1,5 +1,6 @@
 package com.netcraker.mediation.gradle.util
 
+import groovy.transform.CompileStatic
 import org.gradle.api.tasks.JavaExec
 
 /**
@@ -10,6 +11,7 @@ import org.gradle.api.tasks.JavaExec
  * then argument won't be set.
  */
 final class ArgsUtil {
+    @CompileStatic
     private ArgsUtil() {
         throw new IllegalStateException("This class isn't instantiated")
     }
@@ -21,6 +23,7 @@ final class ArgsUtil {
      * @param argName - set argument name (and fetched project property too)
      * @param task    - run {@link JavaExec} instance
      */
+    @CompileStatic
     static void addArg(String value, String argName, JavaExec task) {
         value = value ?: task.project.properties[argName]
         if (value) task.args(argName + '=' + value)
@@ -35,6 +38,7 @@ final class ArgsUtil {
      * @param argName      - set argument name (and fetched project property too)
      * @param task         - run {@link JavaExec} instance
      */
+    @CompileStatic
     static void addArg(int value, int lowThreshold, String argName, JavaExec task) {
         def property = task.project.properties[argName]
         value = value > lowThreshold ? value : (property != null ? property as int : lowThreshold)

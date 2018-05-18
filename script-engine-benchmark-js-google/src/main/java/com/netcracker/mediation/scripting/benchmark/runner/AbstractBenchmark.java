@@ -15,7 +15,7 @@ public abstract class AbstractBenchmark {
     private static final String BENCHMARK_JS_PATH_ARG_STR = "benchmark-js-path";
     private static final String RESULT_PATH_ARG_STR = "result-path";
 
-    protected String resultPath = "build/";
+    protected String resultPath = "out/";
     protected String benchmarkJsPath = "src/main/js/";
 
     /**

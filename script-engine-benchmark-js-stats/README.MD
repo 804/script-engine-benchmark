@@ -3,7 +3,7 @@
 Source: [dromaeo](http://dromaeo.com/?dromaeo)
 
 ###Step 1 <br/> _Dataset preparing._ 
-
+###Step 1 <br/> _Dataset preparing._ 
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -25,13 +25,12 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle proj
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
 
-
 #### Parameters.
 ##### Common parameters:
  - _**use-warm-up**_: boolean flag for turning on of warming up (`false` by default)
  - _**warm-up-iterations**_: warming up iteration count (`5` by default)
  - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
- - _**result-path**_: result dataset output directory (`build/` by default)
+ - _**result-path**_: result dataset output directory (`out/` by default)
 
 
 ###Step 2 <br/> _Dataset analysis._ 

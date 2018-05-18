@@ -7,7 +7,7 @@ import java.time.Instant;
  */
 public abstract class AbstractBenchmark {
     protected String benchmarkJsPath = "src/main/js/";
-    protected String resultPath = "build/";
+    protected String resultPath = "out/";
     protected Integer warmUpIterations = 5;
     private boolean useWarmUp;
 
