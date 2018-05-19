@@ -1,9 +1,9 @@
-##JavaScript engines statistic benchmarks
+## JavaScript engines statistic benchmarks
 
-Source: [dromaeo](http://dromaeo.com/?dromaeo)
+Benchmarks source: [dromaeo](http://dromaeo.com/?dromaeo)  
+Authors: [ankulikov](https://github.com/ankulikov), [804](https://github.com/804)
 
-###Step 1 <br/> _Dataset preparing._ 
-###Step 1 <br/> _Dataset preparing._ 
+### Step 1 <br/> _Dataset preparing._ 
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -33,7 +33,7 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
  - _**result-path**_: result dataset output directory (`out/` by default)
 
 
-###Step 2 <br/> _Dataset analysis._ 
+### Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
 1. Move folders `results` and `warmup` from result folder near to _**ScriptEnginePerformance.ipynb**_ (see `script-engine-benchmark-js-stats/analisys/` folder in repository)
 2. Install Python 3.x and follow dependencies in your environment:
@@ -47,6 +47,6 @@ Then you can run _**ScriptEnginePerformance.ipynb**_ file in IPython/Jupyter.
 #### Notebook parameters:
  - _**warmup_count**_: analysed warmup iterations count (see 1st code input in notebook)
  
-###Also you can see already handled dataset and analisys result:
+### Also you can see already handled dataset and analisys result:
  - `script-engine-benchmark-js-stats/analisys/results/`, `script-engine-benchmark-js-stats/analisys/warmup/`: analysed datasets
  - `script-engine-benchmark-js-stats/analisys/ScriptEnginePerformance.html`: analisys result (for datasets specified above)

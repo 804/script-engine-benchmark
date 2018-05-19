@@ -1,8 +1,9 @@
-##JavaScript engines Google benchmarks
+## JavaScript engines Google benchmarks
 
-Source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks) 
+Benchmarks source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks)  
+Author: [804](https://github.com/804)
 
-###Step 1 <br/> _Dataset preparing._ 
+### Step 1 <br/> _Dataset preparing._ 
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
@@ -37,7 +38,7 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
 ##### Rhino parameters:
  - _**optimization-level**_: integer value for 'optimization-level' option in Rhino engine (range for benchmark is `0-9`)
 
-###Step 2 <br/> _Dataset analysis._ 
+### Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
 1. Move files from `result` folder from result destination directory to the folder `data` near to _**performance.ipynb**_ (see `script-engine-benchmark-js-google/analisys/` folder in repository)
 2. Install Python 3.x and follow dependencies in your environment:
@@ -52,6 +53,6 @@ Then you can run _**performance.ipynb**_ file in IPython/Jupyter.
  - _**run_count**_: count of runs used in analysis of performance dynamic (see 2nd code input in notebook)
  - _**measure_count**_: count of last analysed runs for mean scoring analysis (see 2nd code input in notebook)
  
-####Also you can see already handled dataset and analisys result:
+#### Also you can see already handled dataset and analisys result:
  - `script-engine-benchmark-js-google/analisys/data/`: analysed datasets
  - `script-engine-benchmark-js-google/analisys/performance.html`: analisys result (for datasets specified above)
