@@ -25,9 +25,6 @@ class NashornBenchmarkTask extends AbstractBenchmarkTask {
         super()
         main = NASHORN_BENCHMARK_MAIN_CLASS
     }
-    boolean getOptimisticTypes() {
-        return optimisticTypes
-    }
 
     @Option(
         option = "optimistic-types",

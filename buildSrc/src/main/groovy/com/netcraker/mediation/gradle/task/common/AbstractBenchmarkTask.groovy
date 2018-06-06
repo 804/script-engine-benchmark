@@ -43,20 +43,12 @@ abstract class AbstractBenchmarkTask extends JavaExec {
         group = 'benchmark'
     }
 
-    String getResultPath() {
-        return resultPath
-    }
-
     @Option(
         option = "result-path",
         description = "Option for setting file path to benchmark result directory (common)"
     )
     void setResultPath(String resultPath) {
         this.resultPath = resultPath
-    }
-
-    String getBenchmarkJsPath() {
-        return benchmarkJsPath
     }
 
     @Option(
@@ -67,10 +59,6 @@ abstract class AbstractBenchmarkTask extends JavaExec {
         this.benchmarkJsPath = benchmarkJsPath
     }
 
-    int getIterations() {
-        return iterations
-    }
-
     @Option(
         option = "iterations",
         description = "Option for iteration count setting (Google)"
@@ -79,20 +67,12 @@ abstract class AbstractBenchmarkTask extends JavaExec {
         this.iterations = iterations as int
     }
 
-    boolean getUseWarmUp() {
-        return useWarmUp
-    }
-
     @Option(
         option = "use-warm-up",
         description = "Option for warming up performing before main test (statistic)"
     )
     void setUseWarmUp(boolean useWarmUp) {
         this.useWarmUp = useWarmUp
-    }
-
-    int getWarmUpIterations() {
-        return warmUpIterations
     }
 
     @Option(

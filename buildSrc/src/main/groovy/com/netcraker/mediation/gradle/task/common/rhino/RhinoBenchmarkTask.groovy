@@ -26,10 +26,6 @@ class RhinoBenchmarkTask extends AbstractBenchmarkTask {
         main = RHINO_BENCHMARK_MAIN_CLASS
     }
 
-    int getOptimizationLevel() {
-        return optimizationLevel
-    }
-
     @Option(
         option = "optimization-level",
         description = "Option for 'optimization-level' argument setting"
