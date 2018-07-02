@@ -237,6 +237,60 @@ public class InvokeObjectAsFunctionBenchmark extends SimpleBenchmarkRunner {
     }
 
     /**
+     * Main benchmark case for Java object function style invokation
+     * for Jython Python engine.
+     */
+    @Fork(1)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = 10, time = 5)
+    @Measurement(iterations = 10, time = 5)
+    @State(Scope.Benchmark)
+    static public class Python extends CompiledEvalWithSimpleEngineBindingCase {
+        /**
+         * Custom function instance for binding.
+         */
+        private static final Object CUSTOM_FUNCTION = new RhinoFunction();
+
+        /**
+         * Benchmark method for Java object function style invokation.
+         *
+         * @param blackhole - {@link Blackhole} instance for
+         *                    dead code elimination preventing
+         * @throws ScriptException if error will be occurred
+         *                         during script evaluation
+         */
+        @Benchmark
+        public void invoke(Blackhole blackhole) throws ScriptException {
+            super.evalScript(0, blackhole);
+        }
+
+        @Override
+        public ScriptEngine getScriptEngine() {
+            return new RhinoScriptEngine();
+        }
+
+        @Override
+        public Class<?> getResourceClass() {
+            return staticGetClass();
+        }
+
+        @Override
+        protected String[] getScriptFileNamesForIndexedCache() {
+            return new String[] { "function.py" };
+        }
+
+        @Override
+        protected String getBindingName() {
+            return "myFunction";
+        }
+
+        @Override
+        protected Object getBindingValue() {
+            return CUSTOM_FUNCTION;
+        }
+    }
+
+    /**
      * Static method for getting current class {@link Class} instance.
      *
      * @return current class {@link Class} instance

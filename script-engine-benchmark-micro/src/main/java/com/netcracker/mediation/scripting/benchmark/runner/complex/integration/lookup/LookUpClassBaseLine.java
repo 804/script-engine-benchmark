@@ -8,6 +8,7 @@ import org.codehaus.groovy.jsr223.GroovyScriptEngineFactory;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.RunnerException;
+import org.python.jsr223.PyScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
@@ -170,6 +171,45 @@ public class LookUpClassBaseLine extends SimpleBenchmarkRunner {
         @Override
         protected String[] getScriptFileNamesForIndexedCache() {
             return new String[] { "base.groovy" };
+        }
+    }
+
+    /**
+     * Base line benchmark case for Java class looking up
+     * for Jython Python engine.
+     */
+    @Fork(1)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = 10, time = 5)
+    @Measurement(iterations = 10, time = 5)
+    @State(Scope.Benchmark)
+    static public class Python extends CompiledEvalCase {
+        /**
+         * Base line benchmark method for Java class looking up.
+         *
+         * @param blackhole - {@link Blackhole} instance for
+         *                    dead code elimination preventing
+         * @throws ScriptException if error will be occurred
+         *                         during script evaluation
+         */
+        @Benchmark
+        public void lookUp(Blackhole blackhole) throws ScriptException {
+            super.evalScript(0, blackhole);
+        }
+
+        @Override
+        public ScriptEngine getScriptEngine() {
+            return new PyScriptEngineFactory().getScriptEngine();
+        }
+
+        @Override
+        public Class<?> getResourceClass() {
+            return staticGetClass();
+        }
+
+        @Override
+        protected String[] getScriptFileNamesForIndexedCache() {
+            return new String[] { "base.py" };
         }
     }
 

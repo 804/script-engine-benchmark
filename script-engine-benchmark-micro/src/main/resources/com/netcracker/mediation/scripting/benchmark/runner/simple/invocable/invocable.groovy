@@ -10,4 +10,4 @@ class Result {
     }
 }
 
-return new Result()
+__result = new Result()

@@ -7,6 +7,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.codehaus.groovy.jsr223.GroovyScriptEngineFactory;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.RunnerException;
+import org.python.jsr223.PyScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 
@@ -109,6 +110,32 @@ public class CompilationBenchmark extends SimpleBenchmarkRunner {
         @Override
         protected String getScriptFileName() {
             return "tpk.groovy";
+        }
+
+        @Override
+        public Class<?> getResourceClass() {
+            return staticGetClass();
+        }
+    }
+
+    /**
+     * Benchmark case for script compilation
+     * for Jython Python engine.
+     */
+    @Fork(1)
+    @BenchmarkMode({Mode.Throughput, Mode.SingleShotTime})
+    @Warmup(iterations = 10, time = 5)
+    @Measurement(iterations = 10, time = 5)
+    @State(Scope.Benchmark)
+    static public class Python extends CompilationCase {
+        @Override
+        public ScriptEngine getScriptEngine() {
+            return new PyScriptEngineFactory().getScriptEngine();
+        }
+
+        @Override
+        protected String getScriptFileName() {
+            return "tpk.py";
         }
 
         @Override

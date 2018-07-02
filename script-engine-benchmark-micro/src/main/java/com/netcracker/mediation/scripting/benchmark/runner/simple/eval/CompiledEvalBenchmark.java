@@ -8,6 +8,7 @@ import org.codehaus.groovy.jsr223.GroovyScriptEngineFactory;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.RunnerException;
+import org.python.jsr223.PyScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
@@ -185,6 +186,45 @@ public class CompiledEvalBenchmark extends SimpleBenchmarkRunner {
                 "tpk_for.groovy",
                 "tpk_range.groovy"
             };
+        }
+    }
+
+    /**
+     * Benchmark case for common compiled script evaluation (eval())
+     * for Jython Python engine.
+     */
+    @Fork(1)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = 10, time = 5)
+    @Measurement(iterations = 10, time = 5)
+    @State(Scope.Benchmark)
+    static public class Python extends CompiledEvalCase {
+        /**
+         * Benchmark method for common compiled script evaluation (eval()).
+         *
+         * @param blackhole - {@link Blackhole} instance for
+         *                    dead code elimination preventing
+         * @throws ScriptException if error occurred during
+         *                         script evaluation
+         */
+        @Benchmark
+        public void evalScript(Blackhole blackhole) throws ScriptException {
+            super.evalScript(0, blackhole);
+        }
+
+        @Override
+        public ScriptEngine getScriptEngine() {
+            return new PyScriptEngineFactory().getScriptEngine();
+        }
+
+        @Override
+        public Class<?> getResourceClass() {
+            return staticGetClass();
+        }
+
+        @Override
+        protected String[] getScriptFileNamesForIndexedCache() {
+            return new String[] { "tpk.py" };
         }
     }
 

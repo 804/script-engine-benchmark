@@ -3,7 +3,7 @@
 Author: [804](https://github.com/804)
 
 [JMH](http://hg.openjdk.java.net/code-tools/jmh) benchmarks for JSR-223 script engines.
-Followed engines were compared: Rhino (JavaScript), Nashorn (JavaScript), Groovy (Groovy).
+Followed engines were compared: Rhino (JavaScript), Nashorn (JavaScript), Groovy (Groovy), Jython (Python).
 
 ### Step 1 <br/> _Dataset preparing._ 
 #### a. Gradle benchmark task

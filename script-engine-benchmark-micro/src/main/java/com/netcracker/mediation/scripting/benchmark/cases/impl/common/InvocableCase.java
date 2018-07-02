@@ -6,9 +6,7 @@ import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.infra.Blackhole;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
+import javax.script.*;
 import java.io.InputStreamReader;
 
 /**
@@ -16,6 +14,8 @@ import java.io.InputStreamReader;
  */
 public abstract class InvocableCase
         implements ScriptEngineHolder, ClassResourceDependent {
+    private static final String RESULT_VARIABLE_NAME = "__result";
+
     /**
      * JSR-223 script engine.
      */
@@ -23,7 +23,7 @@ public abstract class InvocableCase
     /**
      * Evaluated script result.
      */
-    private Object scriptResult;
+    private Object retrievedObject;
 
     /**
      * Setup method for JSR-223 script engine
@@ -35,13 +35,15 @@ public abstract class InvocableCase
     @Setup
     public void prepare() throws ScriptException {
         scriptEngine = getScriptEngine();
-        scriptResult = scriptEngine.eval(
-                new InputStreamReader(
-                    getResourceClass().getResourceAsStream(
-                        getScriptFileName()
-                    )
+        scriptEngine.eval(
+            new InputStreamReader(
+                getResourceClass().getResourceAsStream(
+                    getScriptFileName()
                 )
+            )
         );
+        Bindings bindings = scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE);
+        retrievedObject = bindings.get(RESULT_VARIABLE_NAME);
     }
 
     /**
@@ -77,7 +79,7 @@ public abstract class InvocableCase
     public void invokeMethod(Blackhole blackhole)
             throws ScriptException, NoSuchMethodException {
         Object result = ((Invocable) scriptEngine).invokeMethod(
-            scriptResult, getResultMethodName()
+            retrievedObject, getResultMethodName()
         );
         blackhole.consume(result);
     }
@@ -104,7 +106,7 @@ public abstract class InvocableCase
     @Benchmark
     public void getInterfaceFromProperty(Blackhole blackhole) {
         Object runnable = ((Invocable) scriptEngine).getInterface(
-            scriptResult, getResultInterfaceForWrapping()
+                retrievedObject, getResultInterfaceForWrapping()
         );
         blackhole.consume(runnable);
     }

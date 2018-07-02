@@ -7,6 +7,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.codehaus.groovy.jsr223.GroovyScriptEngineFactory;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.RunnerException;
+import org.python.jsr223.PyScriptEngineFactory;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -178,6 +179,52 @@ public class EngineAsInvocableBenchmark extends SimpleBenchmarkRunner {
         @Override
         protected String getScriptFileName() {
             return "invocable.groovy";
+        }
+
+        @Override
+        protected String getMethodName() {
+            return "call";
+        }
+
+        @Override
+        protected String getResultMethodName() {
+            return "call";
+        }
+
+        @Override
+        protected Class<?> getInterfaceForWrapping() {
+            return Callable.class;
+        }
+
+        @Override
+        protected Class<?> getResultInterfaceForWrapping() {
+            return Callable.class;
+        }
+    }
+
+    /**
+     * Script engine as {@link Invocable} benchmark cases
+     * for Jython Python JSR-223 engine.
+     */
+    @Fork(1)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = 10, time = 5)
+    @Measurement(iterations = 10, time = 5)
+    @State(Scope.Benchmark)
+    static public class Python extends InvocableCase {
+        @Override
+        public ScriptEngine getScriptEngine() {
+            return new PyScriptEngineFactory().getScriptEngine();
+        }
+
+        @Override
+        public Class<?> getResourceClass() {
+            return staticGetClass();
+        }
+
+        @Override
+        protected String getScriptFileName() {
+            return "invocable.py";
         }
 
         @Override

@@ -3,6 +3,6 @@ function call() {
     return a;
 }
 
-{
+var __result = {
     call: call
 }

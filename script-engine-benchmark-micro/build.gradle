@@ -14,6 +14,7 @@ dependencies {
     compile group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version:'1.21'
     compile group: 'de.christophkraemer', name: 'rhino-script-engine', version:'1.1.1'
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.15'
+    compile group: 'org.python', name: 'jython-standalone', version: '2.7.1'
 }
 
 task 'jmh'(type: JmhBenchmarkRunnerTask) {
