@@ -5,7 +5,6 @@ import com.netcracker.mediation.scripting.benchmark.runner.AbstractBenchmark;
 
 import javax.script.*;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Main class for Nashorn JavaScript engine statistic benchmarks.

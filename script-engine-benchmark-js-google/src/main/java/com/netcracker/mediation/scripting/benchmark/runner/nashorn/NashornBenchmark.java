@@ -5,11 +5,8 @@ import com.netcracker.mediation.scripting.benchmark.runner.AbstractBenchmark;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.*;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import static java.util.Arrays.stream;
 
 
 /**

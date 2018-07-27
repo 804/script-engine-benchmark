@@ -10,13 +10,20 @@ jar {
 }
 
 dependencies {
-    compile group: 'org.openjdk.jmh', name: 'jmh-core', version:'1.21'
-    compile group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version:'1.21'
-    compile group: 'de.christophkraemer', name: 'rhino-script-engine', version:'1.1.1'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.15'
+    compile group: 'org.openjdk.jmh', name: 'jmh-core', version: '1.21'
+    compile group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.21'
+    compile group: 'de.christophkraemer', name: 'rhino-script-engine', version: '1.1.1'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.15'
     compile group: 'org.python', name: 'jython-standalone', version: '2.7.1'
+    compile group: 'org.graalvm', name: 'graal-sdk', version: '1.0.0-rc3'
 }
 
-task 'jmh'(type: JmhBenchmarkRunnerTask) {
+task 'jmh-common'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
+    includeString = 'com.netcracker.mediation.scripting.benchmark.jvm.*'
+}
+
+task 'jmh-graal'(type: JmhBenchmarkRunnerTask) {
+    classpath = sourceSets.main.runtimeClasspath
+    includeString = 'com.netcracker.mediation.scripting.benchmark.graal.*'
 }

@@ -7,7 +7,6 @@ import org.mozilla.javascript.Script;
 import org.mozilla.javascript.tools.shell.Global;
 
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Main class for Rhino JavaScript engine statistic benchmarks.

@@ -1,12 +1,14 @@
 import com.netcraker.mediation.gradle.task.common.SequentialGradleBuild
+import com.netcraker.mediation.gradle.task.common.graaljs.GraalJSBenchmarkTask
 import com.netcraker.mediation.gradle.task.common.nashorn.NashornBenchmarkTask
 import com.netcraker.mediation.gradle.task.common.rhino.RhinoBenchmarkTask
 
 description = 'JavaScript engines statistic benchmarks'
 
 dependencies {
-    compile group: 'org.mozilla', name: 'rhino', version:'1.7.9'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.16.20'
+    compile group: 'org.mozilla', name: 'rhino', version: '1.7.9'
+    compile group: 'org.graalvm', name: 'graal-sdk', version: '1.0.0-rc3'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 }
 
 task 'nashorn'(type: NashornBenchmarkTask) {
@@ -21,8 +23,20 @@ task 'rhino'(type: RhinoBenchmarkTask) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task 'datasets'(type: SequentialGradleBuild) {
-    description = 'Build task for running Google benchmarks ' +
-        'for engine case (see tasks "nashorn" and "rhino")'
+task 'graal-js'(type: GraalJSBenchmarkTask) {
+    description = 'Common task for running statistic benchmarks ' +
+        'for GraalJS JavaScript engine'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task 'datasets-common'(type: SequentialGradleBuild) {
+    description = 'Build task for running statistic benchmarks ' +
+        'for engine cases (see tasks "nashorn" and "rhino")'
     tasks = ['nashorn', 'rhino']
+}
+
+task 'datasets-graal'(type: SequentialGradleBuild) {
+    description = 'Build task for running statistic benchmarks ' +
+        'for engine cases with GraalVM (see tasks "graal-js", "nashorn" and "rhino")'
+    tasks = ['graal-js', 'nashorn', 'rhino']
 }

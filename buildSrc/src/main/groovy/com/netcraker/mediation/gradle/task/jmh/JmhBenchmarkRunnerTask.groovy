@@ -7,8 +7,6 @@ import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.attribute.FileAttribute
 
 /**
  * Task for running JMH benchmarks and saving results as JSON file.
@@ -21,6 +19,11 @@ class JmhBenchmarkRunnerTask extends JavaExec {
      * File path to benchmark result directory.
      */
     private String resultPath = "out" + File.separator
+
+    /**
+     * Masked string for defining package for performed benchmark discovery.
+     */
+    private String include = ".*"
 
     JmhBenchmarkRunnerTask() {
         super()
@@ -38,16 +41,20 @@ class JmhBenchmarkRunnerTask extends JavaExec {
         this.resultPath = resultPath
     }
 
+    void setIncludeString(String includeString) {
+        this.include = includeString
+    }
+
     @TaskAction
     void exec() {
         String path = buildResultPath()
         createDirRecursiveIfAbsent(path)
-        args("-rf", "json", "-rff", path)
+        args(include, "-rf", "json", "-rff", path)
         super.exec()
     }
 
     private String buildResultPath() {
-        return resultPath + "result" + File.separator + "result.json"
+        return resultPath + "result" + File.separator + "result-" + this.name + ".json"
     }
 
     private void createDirRecursiveIfAbsent(String path) {
