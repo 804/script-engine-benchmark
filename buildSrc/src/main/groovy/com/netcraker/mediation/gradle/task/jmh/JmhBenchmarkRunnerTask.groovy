@@ -41,6 +41,10 @@ class JmhBenchmarkRunnerTask extends JavaExec {
         this.resultPath = resultPath
     }
 
+    @Option(
+        option = "include",
+        description = "Option for defining package for performed benchmark discovery."
+    )
     void setIncludeString(String includeString) {
         this.include = includeString
     }
