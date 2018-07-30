@@ -18,12 +18,12 @@ class JmhBenchmarkRunnerTask extends JavaExec {
     /**
      * File path to benchmark result directory.
      */
-    private String resultPath = "out" + File.separator
+    private String resultPath
 
     /**
      * Masked string for defining package for performed benchmark discovery.
      */
-    private String include = ".*"
+    private String include
 
     JmhBenchmarkRunnerTask() {
         super()
@@ -45,16 +45,35 @@ class JmhBenchmarkRunnerTask extends JavaExec {
         option = "include",
         description = "Option for defining package for performed benchmark discovery."
     )
-    void setIncludeString(String includeString) {
-        this.include = includeString
+    void setInclude(String include) {
+        this.include = include
     }
 
     @TaskAction
     void exec() {
+        configureParameters()
         String path = buildResultPath()
         createDirRecursiveIfAbsent(path)
         args(include, "-rf", "json", "-rff", path)
         super.exec()
+    }
+
+    private void configureParameters() {
+        resultPath = getFromPropertyIfNull(
+            resultPath,
+            "result-path",
+            "out" + File.separator
+        )
+        include = getFromPropertyIfNull(
+            include,
+            "include",
+            ".*"
+        )
+    }
+
+    private Object getFromPropertyIfNull(Object value, String propertyName,
+                                         Object defaultValue) {
+        return (value ?: project.properties.get(propertyName)) ?: defaultValue
     }
 
     private String buildResultPath() {

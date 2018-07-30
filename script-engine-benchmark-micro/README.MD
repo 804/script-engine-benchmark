@@ -8,20 +8,23 @@ Followed engines were compared: Graal JS (JavaScript, for Graal VM only), Rhino 
 ### Step 1 <br/> _Dataset preparing._ 
 #### a. Gradle benchmark task
 You can run all benchmarks by Gradle task using: 
- - for common JVM (Nashorn in my case): `./gradlew micro:jmh-common`
- - for Graal VM: `./gradlew micro:jmh-graal`
+ - for common JVM (Nashorn in my case): `./gradlew micro:jmh-common [<parameters>]`
+ - for Graal VM: `./gradlew micro:jmh-graal [<parameters>]`
    
-Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key value`).
+Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
 
-#### Parameters.
+Parameters have following priorities depends on their specifying method: Gradle option > Gradle Property > default values.
+
+#### Parameters (Gradle only).
  - _**result-path**_: result dataset output directory (`out/` by default)
  - _**include**_: masked string for defining package for performed benchmark discovery (`.*` by default)
  
 #### b. Gradle assemble task
 1. Create jar with dependencies:  
 `./gradlew micro:clean micro:shadowJar`
-2. Run specified runner (for debug purposes only, file wit results will be saved _"jmh-result.json"_ at Java run directory):  
- `java -cp script-engine-benchmark-micro-<version>-all.jar <runner_class>` 
+2. Run:
+ - common JMH runner (you can specify JMH parameters as you want): `java -cp script-engine-benchmark-micro-<version>-all.jar [<parameters>]`
+ - specified runner (for debug purposes, parameters have debug values: _result-path_=_"jmh-result.json"_ and _include_=_<runner_class>_): `java -cp script-engine-benchmark-micro-<version>-all.jar <runner_class>` 
 
 Parameters for this case need to specify as standard JMH arguments (execute `java -jar script-engine-benchmark-micro-<version>-all.jar -h` for help).
 

@@ -7,14 +7,14 @@ Authors: [ankulikov](https://github.com/ankulikov), [804](https://github.com/804
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:
-   * Default Graal JS (chosen Graal VM required): `./gradlew js-stats:graal-js`
-   * Default Nashorn: `./gradlew js-stats:hashorn`
-   * Default Rhino: `./gradlew js-stats:rhino`
+   * Default Graal JS (chosen Graal VM required): `./gradlew js-stats:graal-js [<parameters>]`
+   * Default Nashorn: `./gradlew js-stats:hashorn [<parameters>]`
+   * Default Rhino: `./gradlew js-stats:rhino [<parameters>]`
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
 
- - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-stats:common-datasets`
- - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-stats:graal-datasets`
+ - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-stats:common-datasets [<parameters>]`
+ - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-stats:graal-datasets [<parameters>]`
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
 
@@ -22,11 +22,13 @@ Parameters (see 'Parameters' below) for this case need to specify as Gradle proj
 1. Create jar with dependencies: 
    `./gradlew js-stats:clean js-stats:shadowJar`
 2. Run it as:
- - for Rhino benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark`
- - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark`
- - for Graal JS benchmarks (chosen Graal VM required): `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.graaljs.GraalJSBenchmarkk`
+ - for Rhino benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark [<parameters>]`
+ - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark [<parameters>]`
+ - for Graal JS benchmarks (chosen Graal VM required): `java -cp script-engine-benchmark-js-stats-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.graaljs.GraalJSBenchmarkk [<parameters>]`
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
+
+Parameters have following priorities depends on their specifying method: Gradle option > Gradle Property > default values.
 
 #### Parameters.
 ##### Common parameters:

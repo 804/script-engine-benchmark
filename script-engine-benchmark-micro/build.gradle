@@ -20,10 +20,10 @@ dependencies {
 
 task 'jmh-common'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
-    includeString = 'com.netcracker.mediation.scripting.benchmark.jvm.*'
+    include = 'com.netcracker.mediation.scripting.benchmark.jvm.*'
 }
 
 task 'jmh-graal'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
-    includeString = 'com.netcracker.mediation.scripting.benchmark.graal.*'
+    include = 'com.netcracker.mediation.scripting.benchmark.graal.*'
 }
