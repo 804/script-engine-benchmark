@@ -15,8 +15,8 @@ You can run benchmarks in different manniers:
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
 
- - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-google:common-datasets [<parameters>]` 
- - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-google:graal-datasets [<parameters>]` 
+ - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-common [<parameters>]` 
+ - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-graal [<parameters>]` 
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
 
@@ -36,7 +36,6 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
 #### Parameters.
 ##### Common parameters:
  - _**iterations**_: iteration count (`500` by default)
- - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
  - _**result-path**_: result dataset output directory (`out/` by default)
 ##### Nashorn parameters:
  - _**optimistic-types**_: boolean flag for turning on 'optimistic-types' option in Nashorn engine
@@ -54,9 +53,9 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
  
 Then you can run `ipynb/{common, graal, comparision}/performance.ipynb` (in case of desired analysis result) file in IPython/Jupyter.
 You may see analysys result for following cases: 
- - _common_: for benchmark results run on common JVM (in my case it is Hotspot). All datasets from `js-google:common-datasets` should be moved to `data/common/` folder. See `ipynb/common/` folder for IPython notebook.
- - _graal_: for benchmark results run on Graal JS. All datasets from `js-google:graal-datasets` should be moved to `data/graal/` folder. See `ipynb/graal/` for IPython notebook.
- - _comparision_: for benchmark run on common JVM (in my case it is Hotspot) and Graal JS results comparision. All datasets from `js-google:common-datasets` and `js-google:graal-datasets` should be moved to `data/common/` and `data/graal/` folders accordingly. See `ipynb/comparision/` folder for IPython notebook.
+ - _common_: for benchmark results run on common JVM (in my case it is Hotspot). All datasets from `js-google:datasets-common` should be moved to `data/common/` folder. See `ipynb/common/` folder for IPython notebook.
+ - _graal_: for benchmark results run on Graal JS. All datasets from `js-google:datasets-graal` should be moved to `data/graal/` folder. See `ipynb/graal/` for IPython notebook.
+ - _comparision_: for benchmark run on common JVM (in my case it is Hotspot) and Graal JS results comparision. All datasets from `js-google:datasets-common` and `js-google:datasets-graal` should be moved to `data/common/` and `data/graal/` folders accordingly. See `ipynb/comparision/` folder for IPython notebook.
 
 #### Notebook parameters:
  - _**run_count**_: count of runs used in analysis of performance dynamic (see 2nd code input in notebook)

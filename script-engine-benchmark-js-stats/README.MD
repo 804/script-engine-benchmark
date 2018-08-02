@@ -34,7 +34,6 @@ Parameters have following priorities depends on their specifying method: Gradle 
 ##### Common parameters:
  - _**use-warm-up**_: boolean flag for turning on of warming up (`false` by default)
  - _**warm-up-iterations**_: warming up iteration count (`5` by default)
- - _**benchmark-js-path**_: JavaScript benchmark directory (`src/main/js/` by default)
  - _**result-path**_: result dataset output directory (`out/` by default)
 
 
