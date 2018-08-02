@@ -25,17 +25,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
-load(benchmarkJsPath + 'base.js');
-load(benchmarkJsPath + 'richards.js');
-load(benchmarkJsPath + 'deltablue.js');
-load(benchmarkJsPath + 'crypto.js');
-load(benchmarkJsPath + 'raytrace.js');
-load(benchmarkJsPath + 'earley-boyer.js');
-load(benchmarkJsPath + 'regexp.js');
-load(benchmarkJsPath + 'splay.js');
-load(benchmarkJsPath + 'navier-stokes.js');
-
 var success = true;
 var results;
 

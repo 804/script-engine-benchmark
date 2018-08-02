@@ -5,6 +5,7 @@ import com.netcracker.mediation.scripting.benchmark.runner.AbstractBenchmark;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.*;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,9 @@ import java.util.Map;
  * Main class for Nashorn JavaScript engine Google benchmarks.
  */
 public class NashornBenchmark extends AbstractBenchmark {
+    private static final String GET_RES_CLASS_CODE =
+            "var resClass = new (Java.type('java.lang.Object'))().getClass();";
+
     private boolean optimisticTypesOption;
 
     public static void main(String[] args) throws Exception {
@@ -33,11 +37,17 @@ public class NashornBenchmark extends AbstractBenchmark {
         SimpleScriptContext context = new SimpleScriptContext();
         context.setBindings(createBinding(iterations), ScriptContext.ENGINE_SCOPE);
         CompiledScript loadScriptCompiled = ((Compilable) engine).compile(
-            "load('" + benchmarkJsPath + "runner.js');"
+            loadJsResourcesCode(
+                "base.js", "richards.js",
+                "deltablue.js", "crypto.js",
+                "raytrace.js", "earley-boyer.js",
+                "regexp.js", "splay.js",
+                "navier-stokes.js", "runner.js"
+            )
         );
         loadScriptCompiled.eval(context);
         CompiledScript testScriptCompiled = ((Compilable) engine).compile(
-            "load('" + benchmarkJsPath + "benchmark.js');"
+            loadJsResourcesCode("benchmark.js")
         );
         Object result = testScriptCompiled.eval(context);
         System.out.println("Tests end. Result - " + result);
@@ -61,7 +71,29 @@ public class NashornBenchmark extends AbstractBenchmark {
         simpleBindings.put("writeToFile", new WriteToFile());
         simpleBindings.put("engine", optimisticTypesOption ? "nashorn-opt" : "nashorn");
         simpleBindings.put("resultPath", resultPath);
-        simpleBindings.put("benchmarkJsPath", benchmarkJsPath);
         return simpleBindings;
+    }
+
+    private String loadJsResourcesCode(String... resourcesFileNames) {
+        StringBuilder result = new StringBuilder(GET_RES_CLASS_CODE);
+        for (String resourcesFileName: resourcesFileNames) {
+            result.append(loadJsResourceCodeString(resourcesFileName));
+        }
+        return result.toString();
+    }
+
+    private String loadJsResourceCodeString(String fileName) {
+        return "load(" + getJsResourceUrl(fileName) + ");";
+    }
+
+    private String getJsResourceUrl(String fileName) {
+        return "resClass.getResource(" +
+                "'" + getJsResourcePath(fileName) + "'" +
+                ")";
+    }
+
+    private String getJsResourcePath(String fileName) {
+        return File.separator + "js" +
+                File.separator + fileName;
     }
 }

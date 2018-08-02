@@ -12,11 +12,9 @@ import static java.util.Arrays.stream;
 public abstract class AbstractBenchmark {
     private static final Integer DEFAULT_ITERATIONS = 500;
     private static final String ITER_ARG_STR = "iterations";
-    private static final String BENCHMARK_JS_PATH_ARG_STR = "benchmark-js-path";
     private static final String RESULT_PATH_ARG_STR = "result-path";
 
     protected String resultPath = "out/";
-    protected String benchmarkJsPath = "src/main/js/";
 
     /**
      * Method for benchmark running.
@@ -31,7 +29,6 @@ public abstract class AbstractBenchmark {
         init(argsMap);
         System.out.println(
             "iterations=" + iterations +
-                ", benchmark-js-path=" + benchmarkJsPath +
                 ", result-path=" + resultPath
         );
         System.out.println("Start: " + Instant.now());
@@ -45,9 +42,7 @@ public abstract class AbstractBenchmark {
     }
 
     protected void init(Map<String, String> argsMap) {
-        String benchmarkJsPathArg = argsMap.get(BENCHMARK_JS_PATH_ARG_STR);
         String resultPathArg = argsMap.get(RESULT_PATH_ARG_STR);
-        if (benchmarkJsPathArg != null) this.benchmarkJsPath = benchmarkJsPathArg;
         if (resultPathArg != null) this.resultPath = resultPathArg;
     }
 

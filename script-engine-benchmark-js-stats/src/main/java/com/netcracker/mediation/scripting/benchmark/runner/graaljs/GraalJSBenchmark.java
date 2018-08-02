@@ -4,11 +4,14 @@ import com.netcracker.mediation.scripting.benchmark.function.graaljs.WriteToFile
 import com.netcracker.mediation.scripting.benchmark.runner.AbstractBenchmark;
 
 import javax.script.*;
+import java.io.File;
 
 /**
  * Main class for GraalJS JavaScript engine statistic benchmarks.
  */
 public class GraalJSBenchmark extends AbstractBenchmark {
+    private static final String GET_RES_CLASS_CODE =
+            "var resClass = new (Java.type('java.lang.Object'))().getClass();";
 
     public static void main(String[] args) throws Exception {
         new GraalJSBenchmark().run(args);
@@ -21,15 +24,17 @@ public class GraalJSBenchmark extends AbstractBenchmark {
             System.out.println("WarmUp: iteration " + i);
             ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
             CompiledScript extScriptCompiled = ((Compilable) engine).compile(
-                "load('" + benchmarkJsPath + "lodash.min.js');" +
-                    "load('" + benchmarkJsPath + "platform.js');" +
-                    "load('" + benchmarkJsPath + "benchmark.js');"
+                loadJsResourcesCode(
+                    "lodash.min.js",
+                            "platform.js",
+                            "benchmark.js"
+                )
             );
             SimpleScriptContext context = new SimpleScriptContext();
             context.setBindings(createBinding(engine, i), ScriptContext.ENGINE_SCOPE);
             res[2 * i] = extScriptCompiled.eval(context);
             CompiledScript warmupScriptCompiled = ((Compilable) engine).compile(
-                "load('" + benchmarkJsPath + "warmup.js');"
+                loadJsResourcesCode("warmup.js")
             );
             res[2 * i + 1] = warmupScriptCompiled.eval(context);
         }
@@ -40,15 +45,17 @@ public class GraalJSBenchmark extends AbstractBenchmark {
     protected void runTests() throws Exception {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
         CompiledScript extScriptCompiled = ((Compilable) engine).compile(
-            "load('" + benchmarkJsPath + "lodash.min.js');" +
-                "load('" + benchmarkJsPath + "platform.js');" +
-                "load('" + benchmarkJsPath + "benchmark.js');"
+            loadJsResourcesCode(
+                "lodash.min.js",
+                        "platform.js",
+                        "benchmark.js"
+            )
         );
         SimpleScriptContext context = new SimpleScriptContext();
         context.setBindings(createBinding(engine, 0), ScriptContext.ENGINE_SCOPE);
         extScriptCompiled.eval(context);
         CompiledScript testScriptCompiled = ((Compilable) engine).compile(
-            "load('" + benchmarkJsPath + "runner.js');"
+            loadJsResourcesCode("runner.js")
         );
         Object testScriptResult = testScriptCompiled.eval(context);
         System.out.println("Tests end. Result hash code: " + testScriptResult.hashCode());
@@ -61,5 +68,28 @@ public class GraalJSBenchmark extends AbstractBenchmark {
         simpleBindings.put("engine", "graal-js");
         simpleBindings.put("resultPath", resultPath);
         return simpleBindings;
+    }
+
+    private String loadJsResourcesCode(String... resourcesFileNames) {
+        StringBuilder result = new StringBuilder(GET_RES_CLASS_CODE);
+        for (String resourcesFileName: resourcesFileNames) {
+            result.append(loadJsResourceCodeString(resourcesFileName));
+        }
+        return result.toString();
+    }
+
+    private String loadJsResourceCodeString(String fileName) {
+        return "load(" + getJsResourceUrl(fileName) + ");";
+    }
+
+    private String getJsResourceUrl(String fileName) {
+        return "resClass.getResource(" +
+                "'" + getJsResourcePath(fileName) + "'" +
+                ")";
+    }
+
+    private String getJsResourcePath(String fileName) {
+        return File.separator + "js" +
+                File.separator + fileName;
     }
 }

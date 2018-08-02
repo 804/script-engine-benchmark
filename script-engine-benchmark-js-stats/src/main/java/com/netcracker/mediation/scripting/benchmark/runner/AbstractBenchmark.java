@@ -6,7 +6,6 @@ import java.time.Instant;
  * Abstract class for JavaScript engine statistic benchmarks.
  */
 public abstract class AbstractBenchmark {
-    protected String benchmarkJsPath = "src/main/js/";
     protected String resultPath = "out/";
     protected Integer warmUpIterations = 5;
     private boolean useWarmUp;
@@ -23,7 +22,6 @@ public abstract class AbstractBenchmark {
         System.out.println(
             "use-warm-up=" + useWarmUp +
                 ", warm-up-iterations=" + warmUpIterations +
-                ", benchmark-js-path=" + benchmarkJsPath +
                 ", result-path=" + resultPath
         );
         System.out.println("Start: " + Instant.now());
@@ -44,9 +42,6 @@ public abstract class AbstractBenchmark {
                         break;
                     case "warm-up-iterations":
                         warmUpIterations = Integer.parseInt(pair[1]);
-                        break;
-                    case "benchmark-js-path":
-                        benchmarkJsPath = pair[1];
                         break;
                     case "result-path":
                         resultPath = pair[1];
