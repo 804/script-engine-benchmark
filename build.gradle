@@ -3,8 +3,8 @@ plugins {
 }
 
 allprojects  {
-    group = 'com.netcracker.mediation'
-    version = '1.0.1'
+    group = 'org.eightofour'
+    version = '1.0.2'
 
     repositories {
         jcenter()

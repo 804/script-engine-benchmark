@@ -13,7 +13,7 @@ You can run benchmarks in different manniers:
    * Rhino with 'optimization-level=0': `./gradlew js-google:rhino-0 [<parameters>]`
    * Rhino with 'optimization-level=9': `./gradlew js-google:rhino-9 [<parameters>]`
    
-Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
+Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` or `--key=value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
 
  - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-common [<parameters>]` 
  - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-graal [<parameters>]` 
@@ -26,9 +26,9 @@ Parameters have following priorities depends on their specifying method: Gradle 
 1. Create jar with dependencies: 
    `./gradlew js-google:clean js-google:shadowJar`
 2. Run it as:
- - for Rhino benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.rhino.RhinoBenchmark [<parameters>]`
- - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.nashorn.NashornBenchmark [<parameters>]`
- - for Graal JS benchmarks (chosen Graal VM required): `java -cp script-engine-benchmark-js-google-<version>-all.jar com.netcracker.mediation.scripting.benchmark.runner.graaljs.GraalJSBenchmark [<parameters>]`
+ - for Rhino benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.rhino.RhinoBenchmark [<parameters>]`
+ - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.nashorn.NashornBenchmark [<parameters>]`
+ - for Graal JS benchmarks (chosen Graal VM required): `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.graaljs.GraalJSBenchmark [<parameters>]`
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
 
