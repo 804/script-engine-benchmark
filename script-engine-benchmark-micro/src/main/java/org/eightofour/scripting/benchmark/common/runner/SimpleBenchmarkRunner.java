@@ -20,7 +20,7 @@ public abstract class SimpleBenchmarkRunner {
      */
     protected void run() throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(".*\\." + getClass().getSimpleName() + "\\.Nashorn\\..*")
+                .include(".*\\." + getClass().getSimpleName())
                 .resultFormat(ResultFormatType.JSON)
                 .build();
         new Runner(opt).run();

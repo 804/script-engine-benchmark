@@ -8,6 +8,7 @@ description = 'JavaScript engines statistic benchmarks'
 dependencies {
     compile group: 'org.mozilla', name: 'rhino', version: '1.7.10'
     compile group: 'org.graalvm.sdk', name: 'graal-sdk', version: '1.0.0-rc16'
+//    compile group: 'org.graalvm.js', name: 'js-scriptengine', version: '1.0.0-rc16'
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.18.8'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version:'1.18.8'
 }

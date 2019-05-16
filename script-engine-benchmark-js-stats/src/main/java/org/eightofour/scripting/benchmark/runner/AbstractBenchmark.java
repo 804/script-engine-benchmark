@@ -57,7 +57,7 @@ public abstract class AbstractBenchmark {
      * @throws Exception in case of error occurring
      *                   during script execution
      */
-    protected abstract void warmUp() throws Exception ;
+    protected abstract void warmUp() throws Exception;
 
     /**
      * Method for benchmark main test performing.
@@ -65,5 +65,5 @@ public abstract class AbstractBenchmark {
      * @throws Exception in case of error occurring
      *                   during script execution
      */
-    protected abstract void runTests() throws Exception ;
+    protected abstract void runTests() throws Exception;
 }

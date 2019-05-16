@@ -5,6 +5,8 @@ import org.eightofour.scripting.benchmark.jvm.runner.simple.compilation.Compilat
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.RunnerException;
 
+import javax.script.Bindings;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -79,7 +81,11 @@ public class GraalCompilationBenchmark extends CompilationBenchmark {
     static public class GraalJS extends CompilationCase {
         @Override
         public ScriptEngine getScriptEngine() {
-            return new ScriptEngineManager().getEngineByName("graal.js");
+            ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
+            Bindings bindings = engine.createBindings();
+            bindings.put("polyglot.js.allowAllAccess", true);
+            engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+            return engine;
         }
 
         @Override

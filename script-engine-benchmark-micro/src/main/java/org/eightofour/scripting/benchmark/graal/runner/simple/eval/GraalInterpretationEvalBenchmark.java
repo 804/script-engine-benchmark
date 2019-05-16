@@ -6,9 +6,7 @@ import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.RunnerException;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import javax.script.*;
 
 /**
  * Runner for common script interpreting (eval(Reader))
@@ -96,7 +94,11 @@ public class GraalInterpretationEvalBenchmark extends InterpretationEvalBenchmar
 
         @Override
         public ScriptEngine getScriptEngine() {
-            return new ScriptEngineManager().getEngineByName("graal.js");
+            ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
+            Bindings bindings = engine.createBindings();
+            bindings.put("polyglot.js.allowAllAccess", true);
+            engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+            return engine;
         }
 
         @Override
