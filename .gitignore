@@ -39,6 +39,7 @@ hs_err_pid*
 # Gradle ignore directories
 build
 .gradle
+!gradle-wrapper.jar
 
 # IPython chackpoints
 .ipynb_checkpoints

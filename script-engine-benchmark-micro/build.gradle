@@ -1,4 +1,4 @@
-import com.netcraker.mediation.gradle.task.jmh.JmhBenchmarkRunnerTask
+import org.eightofour.gradle.task.jmh.JmhBenchmarkRunnerTask
 
 description = 'JMH microbenchmarks for Groovy, Rhino and Nashorn ' +
         'script engines JSR-223 implementation'
@@ -11,19 +11,19 @@ jar {
 
 dependencies {
     compile group: 'org.openjdk.jmh', name: 'jmh-core', version: '1.21'
-    compile group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.21'
     compile group: 'de.christophkraemer', name: 'rhino-script-engine', version: '1.1.1'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.15'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.6'
     compile group: 'org.python', name: 'jython-standalone', version: '2.7.1'
-    compile group: 'org.graalvm', name: 'graal-sdk', version: '1.0.0-rc3'
+    compile group: 'org.graalvm.sdk', name: 'graal-sdk', version: '1.0.0-rc16'
+    annotationProcessor group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.21'
 }
 
-task 'jmh-common'(type: JmhBenchmarkRunnerTask) {
+task 'jmh-common-hotspot'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
-    include = 'com.netcracker.mediation.scripting.benchmark.jvm.*'
+    include = 'org.eightofour.scripting.benchmark.jvm.*'
 }
 
-task 'jmh-graal'(type: JmhBenchmarkRunnerTask) {
+task 'jmh-graalvm'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
-    include = 'com.netcracker.mediation.scripting.benchmark.graal.*'
+    include = 'org.eightofour.scripting.benchmark.graal.*'
 }
