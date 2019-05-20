@@ -51,13 +51,13 @@ task 'graal-js'(type: GraalJSBenchmarkTask) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task 'datasets-common'(type: SequentialGradleBuild) {
+task 'datasets-common-hotspot'(type: SequentialGradleBuild) {
     description = 'Build task for running Google benchmarks ' +
             'for engine case (see tasks "nashorn", "nashorn-opt", "rhino-0", "rhino-9")'
     tasks = ['nashorn', 'nashorn-opt', 'rhino-0', 'rhino-9']
 }
 
-task 'datasets-graal'(type: SequentialGradleBuild) {
+task 'datasets-graalvm'(type: SequentialGradleBuild) {
     description = 'Build task for running Google benchmarks ' +
             'for engine case with GraalJS (see tasks "nashorn", ' +
             '"nashorn-opt", "rhino-0", "rhino-9", "graal-js")'

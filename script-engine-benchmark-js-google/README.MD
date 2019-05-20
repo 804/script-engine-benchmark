@@ -15,8 +15,8 @@ You can run benchmarks in different manniers:
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle option (`--key` if you want to set boolean flag to 'true' and `--key value` or `--key=value` for other values) or as Gradle project properties (as `-P<key>=<value>`) after commands above.
 
- - Run all common JVM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-common [<parameters>]` 
- - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-graal [<parameters>]` 
+ - Run all common Hotspot JVM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-common-hotspot [<parameters>]` 
+ - Run all Graal VM cases for benchmarks above as sequential build task: `./gradlew js-google:datasets-graalvm [<parameters>]` 
    
 Parameters (see 'Parameters' below) for this case need to specify as Gradle project properties (as `-P<key>=<value>`) after commands above (propagate to each task in build task).
 
@@ -28,7 +28,7 @@ Parameters have following priorities depends on their specifying method: Gradle 
 2. Run it as:
  - for Rhino benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.rhino.RhinoBenchmark [<parameters>]`
  - for Nashorn benchmarks: `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.nashorn.NashornBenchmark [<parameters>]`
- - for Graal JS benchmarks (chosen Graal VM required): `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.graaljs.GraalJSBenchmark [<parameters>]`
+ - for Graal JS benchmarks (chosen GraalVM required): `java -cp script-engine-benchmark-js-google-<version>-all.jar org.eightofour.scripting.benchmark.runner.graaljs.GraalJSBenchmark [<parameters>]`
 
 Parameters (see 'Parameters' below) for this case need to specify as `key=value` after commands above.
 
@@ -44,24 +44,27 @@ Parameters (see 'Parameters' below) for this case need to specify as `key=value`
 
 ### Step 2 <br/> _Dataset analysis._ 
 #### Run preparing:
-1. Move files from `result` folder from result destination directory to the folder `data/{common, graal}` (in case of run benchmarks) (see `script-engine-benchmark-js-google/analisys/` folder in repository)
+1. Move files from `result` folder from result destination directory to the folder `data/{common-hotspot, graalvm-ce, graalvm-ee}` (in case of run benchmarks) (see `script-engine-benchmark-js-google/analysis/` folder in repository)
 2. Install Python 3.x and follow dependencies in your environment:
  - _**jupyter**_
  - _**matplotlib**_
  - _**sympy**_
  - _**scipy**_
  
-Then you can run `ipynb/{common, graal, comparision}/performance.ipynb` (in case of desired analysis result) file in IPython/Jupyter.
+Then you can run `ipynb/{common-hotspot, graalvm-ce, graalvm-ee, comparision}/performance.ipynb` (in case of desired analysis result) file in IPython/Jupyter.
 You may see analysys result for following cases: 
- - _common_: for benchmark results run on common JVM (in my case it is Hotspot). All datasets from `js-google:datasets-common` should be moved to `data/common/` folder. See `ipynb/common/` folder for IPython notebook.
- - _graal_: for benchmark results run on Graal JS. All datasets from `js-google:datasets-graal` should be moved to `data/graal/` folder. See `ipynb/graal/` for IPython notebook.
- - _comparision_: for benchmark run on common JVM (in my case it is Hotspot) and Graal JS results comparision. All datasets from `js-google:datasets-common` and `js-google:datasets-graal` should be moved to `data/common/` and `data/graal/` folders accordingly. See `ipynb/comparision/` folder for IPython notebook.
+ - _common_: for benchmark results run on common Hotspot JVM. All datasets from `js-google:datasets-common-hotspot` (run with Hotspot JVM) should be moved to `data/common-hotspot/` folder. See `ipynb/common-hotspot/` folder for IPython notebook.
+ - _graalvm-ce_: for benchmark results run on GraalVM CE. All datasets from `js-google:datasets-graalvm` (run with GraalVM CE) should be moved to `data/graalvm-ce/` folder. See `ipynb/graalvm-ce/` for IPython notebook.
+ - _graalvm-ee_: for benchmark results run on GraalVM EE. All datasets from `js-google:datasets-graalvm` (run with GraalVM EE) should be moved to `data/graalvm-ee/` folder. See `ipynb/graalvm-ee/` for IPython notebook.
+ - _comparision_: for benchmark run on common Hotspot JVM and GraalVM results comparision. All datasets from `js-google:datasets-common-hotspot` (run with Hotspot JVM) and `js-google:datasets-graalvm` (run with GraalVM CE and EE) should be moved to `data/common-hotspot/`, `data/graalvm-ce/` and `data/graalvm-ee/` folders accordingly. See `ipynb/comparision/` folder for IPython notebook.
 
 #### Notebook parameters:
  - _**run_count**_: count of runs used in analysis of performance dynamic (see 2nd code input in notebook)
  - _**measure_count**_: count of last analysed runs for mean scoring analysis (see 2nd code input in notebook)
  
-#### Also you can see already handled dataset and analisys result:
- - `script-engine-benchmark-js-google/analisys/data/{common, graal}/`: analysed datasets
- - `script-engine-benchmark-js-google/analisys/ipynb/{common, graal}/performance.html`: analisys result (for datasets specified above)
- - `script-engine-benchmark-js-google/analisys/ipynb/comparision/performance.html`: analisys result (for comparision of datasets specified above)
+#### Also you can see already handled dataset and analysis result:
+ - `script-engine-benchmark-js-google/analysis/data/{common, graal}/`: analysed datasets
+ - `script-engine-benchmark-js-google/analysis/ipynb/{common, graal}/performance.html`: analysis result (for datasets specified above)
+ - `script-engine-benchmark-js-google/analysis/ipynb/comparision/performance.html`: analysis result (for comparision of datasets specified above)
+ 
+_**PS**: Choice of JVM for common cases isn't strict. You can replace Hotspot JVM by any JVM (with any version) which supports all the tested script engine for your experiments (and has Nashorn engine in it's JDK)._ 

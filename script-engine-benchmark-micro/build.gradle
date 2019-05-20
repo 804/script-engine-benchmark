@@ -18,12 +18,12 @@ dependencies {
     annotationProcessor group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.21'
 }
 
-task 'jmh-common'(type: JmhBenchmarkRunnerTask) {
+task 'jmh-common-hotspot'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
     include = 'org.eightofour.scripting.benchmark.jvm.*'
 }
 
-task 'jmh-graal'(type: JmhBenchmarkRunnerTask) {
+task 'jmh-graalvm'(type: JmhBenchmarkRunnerTask) {
     classpath = sourceSets.main.runtimeClasspath
     include = 'org.eightofour.scripting.benchmark.graal.*'
 }
