@@ -3,7 +3,7 @@
 Benchmarks source: [google-v8](https://github.com/v8/v8/tree/master/benchmarks)  
 Author: [804](https://github.com/804)
 
-### Step 1 <br/> _Dataset preparing._ 
+### Step 1 <br/> _Dataset preparation._ 
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manniers:
  - Run each case for benchmarks with corresponding task:

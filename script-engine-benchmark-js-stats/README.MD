@@ -3,7 +3,7 @@
 Benchmarks source: [dromaeo](http://dromaeo.com/?dromaeo)  
 Authors: [ankulikov](https://github.com/ankulikov), [804](https://github.com/804)
 
-### Step 1 <br/> _Dataset preparing._ 
+### Step 1 <br/> _Dataset preparation._ 
 #### a. Gradle benchmark tasks
 You can run benchmarks in different manners:
  - Run each case for benchmarks with corresponding task:
